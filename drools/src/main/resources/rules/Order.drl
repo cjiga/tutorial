@@ -1,0 +1,62 @@
+//created on: 19/01/2016
+package rules
+
+//list any import classes here.
+import com.cjiga.tutorial.drools.dto.*;
+//declare any global variables here
+// Sumamos el importe total de los productos
+rule "Initial rule"
+	salience 20
+    when
+        //conditions
+        order : Order();
+        totalPrice :  Double() from accumulate(
+        	Product( productPrice : price) from order.getProducts,
+        	init(double total = 0;),
+        	action (total += productPrice;),
+        	result (new Double(total))
+        );
+    then
+        //actions
+        order.setTotalPrice(totalPrice);
+end
+// Comprobamos si el cliente es SILVER, si es así aplicamos un 5% de descuento
+rule "SILVER customer rule"
+    //include attributes such as "salience" here...
+    salience 15
+    when
+        //conditions
+        order : Order();
+        customer : Customer( status == Customer.SILVER_CUSTOMER) from order.getCustomer();
+    then
+        //actions
+		order.setTotalPrice(order.getTotalPrice()*(1-(5/100d)));
+end
+// Comprobamos si el cliente es GOLD, si es así aplicamos un 10% de descuento
+rule "GOLD customer rule"
+    //include attributes such as "salience" here...
+    salience 15
+    when
+        //conditions
+        order : Order();
+        customer : Customer( status == Customer.GOLD_CUSTOMER) from order.getCustomer();
+    then
+        //actions
+		order.setTotalPrice(order.getTotalPrice()*(1-(5/100d)));
+end
+// Comprobamos si el pedido tiene 10 o más productos, si es así aplicamos un 15% de descuento
+// Esta regla solo será aplicada en Septiembre de 2012
+rule "Number of products rule"	
+	salience 10	
+	date-effective "01-SEP-2012"
+	date-expires "01-OCT-2012"
+	when
+        order : Order (products.size() >= 10);
+    then
+    	order.setTotalPrice(order.getTotalPrice() * (1 - (15 / 100d) ) );
+end
+
+
+
+
+

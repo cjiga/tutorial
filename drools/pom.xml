@@ -5,25 +5,39 @@
   <version>1.0.0</version>
   
   <dependencies>
+  	<!-- this provides the interfaces and factories. It also helps clearly show what is intended as a user API and what is just an engine API -->
   	<dependency>
   		<groupId>org.drools</groupId>
 		<artifactId>knowledge-api</artifactId>
 		<version>6.2.0.Final</version>
 	</dependency>
+	<!-- this is the core engine, runtime component. Contains both the RETE engine and the LEAPS engine. This is the only runtime dependency if you are pre-compiling rules (and deploying via Package or RuleBase objects) -->
 	<dependency>
 		<groupId>org.drools</groupId>
 		<artifactId>drools-core</artifactId>
 		<version>6.2.0.Final</version>
 	</dependency>
+	<!-- this contains the compiler/builder components to take rule source, and build executable rule bases. This is often a runtime dependency of your application, but it need not be if you are pre-compiling your rules. This depends on drools-core. -->
 	<dependency>
 		<groupId>org.drools</groupId>
 		<artifactId>drools-compiler</artifactId>
 		<version>6.2.0.Final</version>
 	</dependency>
+	<!-- this is the decision tables 'compiler' component, which uses the drools-compiler component. This supports both excel and CSV input formats. -->
+	<dependency>
+		<groupId>org.drools</groupId>
+		<artifactId>drools-decisiontables</artifactId>
+		<version>6.2.0.Final</version>
+	</dependency>
+	<dependency>
+		<groupId>org.drools</groupId>
+		<artifactId>drools-templates</artifactId>
+		<version>6.2.0.Final</version>
+	</dependency>
 	<dependency>
 		<groupId>com.thoughtworks.xstream</groupId>
 		<artifactId>xstream</artifactId>
-		<version>1.3.1</version>
+		<version>1.4.8</version>
 	</dependency>
   </dependencies>
 </project>
