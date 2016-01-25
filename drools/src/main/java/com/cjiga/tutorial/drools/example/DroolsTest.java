@@ -26,7 +26,7 @@ public class DroolsTest {
 		// TODO Auto-generated method stub
 		/*Drools 6.**/
 		final KieSession ksession=readKnowledgeBaseKie("OrderKS");
-		
+		 
 		/*Drools 5.**/
 //		final KnowledgeBase kbase=readKnowledgeBase();
 //		final StatefulKnowledgeSession ksession = kbase.newStatefulKnowledgeSession();
